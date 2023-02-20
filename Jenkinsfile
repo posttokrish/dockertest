@@ -1,9 +1,9 @@
 properties([
   parameters([
-    string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Which environment to deploy to: dev, staging, or prod'),
+    string(name: 'GIT_REPO', description: 'Git repository URL'),
+    string(name: 'GIT_BRANCH', description: 'Git branch to build'),
   ])
 ])
-
 pipeline {
   agent any
   
@@ -13,20 +13,20 @@ pipeline {
         sh 'echo in Build stage'
       }
     }
-    stage('Deploy') {
+    stage('Scan') {
       when {
         expression { params.ENVIRONMENT == 'staging' || params.ENVIRONMENT == 'prod' }
       }
       steps {
-        sh "echo in Build Deploy"
+        sh "echo in Build Scan"
       }
     }
-    stage('Monitor') {
+    stage('Deploy') {
       when {
         expression { params.ENVIRONMENT == 'test' || params.ENVIRONMENT == 'prod' }
       }
       steps {
-        sh "echo in Build  Monitor"
+        sh "echo in Build  Deploy"
       }
     }
   }
