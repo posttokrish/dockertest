@@ -10,8 +10,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install'
-        sh 'npm run build'
+        sh 'echo in Build stage'
       }
     }
     stage('Deploy') {
@@ -19,7 +18,15 @@ pipeline {
         expression { params.ENVIRONMENT == 'staging' || params.ENVIRONMENT == 'prod' }
       }
       steps {
-        sh "ssh deploy@${params.ENVIRONMENT}.example.com 'cd /var/www && git pull origin master'"
+        sh "echo in Build Deploy"
+      }
+    }
+    stage('Monitor') {
+      when {
+        expression { params.ENVIRONMENT == 'test' || params.ENVIRONMENT == 'prod' }
+      }
+      steps {
+        sh "echo in Build  Monitor"
       }
     }
   }
