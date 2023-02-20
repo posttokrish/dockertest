@@ -14,7 +14,12 @@ pipeline {
                             ),
                             string(
                                 defaultValue: 'Parameter2_from_Jenkins', 
-                                name: 'STRING-PARAMETER', 
+                                name: 'PARAMETER_1', 
+                                trim: true
+                            ),
+                            string(
+                                defaultValue: 'Parameter2_from_Jenkins', 
+                                name: 'PARAMETER_2', 
                                 trim: true
                             )
                         ])
